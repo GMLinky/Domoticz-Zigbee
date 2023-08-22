@@ -191,7 +191,11 @@ def buildframe_write_attribute_request(self, frame, Sqn, SrcNwkId, SrcEndPoint, 
     buildPayload = Sqn + SrcNwkId + SrcEndPoint + TargetEp + ClusterId + "01" + ManufSpec + ManufCode
     idx = nbAttribute = 0
     payloadOfAttributes = ""
-    while idx < len(Data) and len(Data[idx:]) >= 8:
+    # buildframe_read_attribute_response length comparison should be 6
+    # Length is at least 8 for response with Status/Type/Value OK
+    # But is 6 for response with Status only exemple "86"=Attribute not found
+    # while idx < len(Data) and len(Data[idx:]) >= 8:
+    while idx < len(Data) and len(Data[idx:]) >= 6:
         nbAttribute += 1
         Attribute = "%04x" % struct.unpack("H", struct.pack(">H", int(Data[idx : idx + 4], 16)))[0]
         idx += 4
