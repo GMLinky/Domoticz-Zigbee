@@ -230,7 +230,11 @@ def buildframe_read_attribute_response(self, frame, Sqn, SrcNwkId, SrcEndPoint, 
     nbAttribute = 0
     idx = 0
     buildPayload = Sqn + SrcNwkId + SrcEndPoint + ClusterId
-    while idx < len(Data) and len(Data[idx:]) >= 8:
+    # buildframe_read_attribute_response
+    # Line while idx < len(Data) and len(Data[idx:]) >= 8: for response with Status/Type/Value
+    # should be while idx < len(Data) and len(Data[idx:]) >= 6: for response with Status only (example "86"=Attribute not found)
+    # while idx < len(Data) and len(Data[idx:]) >= 8:
+    while idx < len(Data) and len(Data[idx:]) >= 6:
         nbAttribute += 1
         Attribute = "%04x" % struct.unpack("H", struct.pack(">H", int(Data[idx : idx + 4], 16)))[0]
         idx += 4
