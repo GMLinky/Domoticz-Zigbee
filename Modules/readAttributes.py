@@ -1345,7 +1345,7 @@ def ReadAttributeRequest_0702_0017(self, key):
 
     # Define the cluster and attribute
     cluster_id = "0702"
-    listAttributes = [0x0017]
+    attributes_list = [0x0017,]
 
     # Get the list of endpoints for the cluster
     endpoints = getListOfEpForCluster(self, key, cluster_id)
@@ -1353,12 +1353,12 @@ def ReadAttributeRequest_0702_0017(self, key):
         self.log.logging(
             "ReadAttributes",
             "Debug",
-            f"Requesting InletTemperature (Attribute {listAttributes}) on cluster {cluster_id} for key {key}, EP = {endpoint}.",
+            f"Requesting InletTemperature (Attribute {attributes_list}) on cluster {cluster_id} for key {key}, EP = {endpoint}.",
             nwkid=key
         )
 
         # Send the read attribute request
-        ReadAttributeReq(self, key, ZIGATE_EP, endpoint, cluster_id, listAttributes, ackIsDisabled=is_ack_tobe_disabled(self, key))
+        ReadAttributeReq(self, key, ZIGATE_EP, endpoint, cluster_id, attributes_list, ackIsDisabled=is_ack_tobe_disabled(self, key))
 
 
 def ReadAttributeRequest_0702_multiplier_divisor(self, key):
