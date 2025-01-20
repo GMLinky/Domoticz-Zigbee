@@ -23,6 +23,8 @@ ZIGATEV1_FIRMWARE_TXT_RECORD = "zigatev1.pipiche.net"
 ZIGATEV1OPTIPDM_TXT_RECORD = "zigatev1optipdm.pipiche.net"
 ZIGATEV2_FIRMWARE_TXT_RECORD = "zigatev2.pipiche.net"
 
+DNS_REQ_TIMEOUT = 2
+
 ZIGATE_DNS_RECORDS = {
     "03": ZIGATEV1_FIRMWARE_TXT_RECORD,
     "04": ZIGATEV1OPTIPDM_TXT_RECORD,
@@ -65,12 +67,12 @@ def check_plugin_version_against_dns(self, zigbee_communication, branch, zigate_
     return (0, 0, 0)
 
 
-def _get_dns_txt_record(self, record, timeout=1):
+def _get_dns_txt_record(self, record, timeout=DNS_REQ_TIMEOUT):
     if not self.internet_available:
         return None
 
     try:
-        result = dns.resolver.resolve(record, "TXT", tcp=True, lifetime=1).response.answer[0]
+        result = dns.resolver.resolve(record, "TXT", tcp=True, lifetime=timeout).response.answer[0]
         return str(result[0]).strip('"')
 
     except dns.resolver.Timeout:
