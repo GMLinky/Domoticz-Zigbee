@@ -163,7 +163,7 @@ def connection_lost(self, exc: Exception) -> None:
 
     super(type(self),self).connection_lost(exc)
 
-    if not self.shutting_down and not self.restarting and isinstance( exc, serial.serialutil.SerialException):
+    if not self.shutting_down and not self.restarting and isinstance( exc, (serial.serialutil.SerialException, TimeoutError)):
         LOGGER.error( "++++++++++++++++++++++ Connection to coordinator failed on Serial, let's restart the plugin")
         LOGGER.warning( f"--> : self.shutting_down: {self.shutting_down}, {self.restarting}")
 
