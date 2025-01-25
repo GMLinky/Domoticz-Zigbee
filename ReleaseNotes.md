@@ -18,6 +18,11 @@ Release Numbering
 - Odd numbers --> Stable/7
 - Even numbers  --> Beta/7 (dev branch)
 
+## Jan. 2025 - stable7.1.020 (2025.2) - hot fix
+
+- [Issue] - fix issue which was preventing upgrading from 018 to later version
+
+
 ## Jan. 2025 - stable7.1.019 (2025.1)
 
 - [Hardware] - Improve ZLinky integration with a better management of Color changes.
